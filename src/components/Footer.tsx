@@ -66,7 +66,7 @@ const Footer = () => {
         <div className='container mx-auto'>
           <aside className='w-full text-center'>
             <p className='text-xs md:text-sm'>
-              Copyright © 2024 - All right reserved by LibraTrack
+              Copyright © 2025 - All right reserved by LibraTrack
             </p>
           </aside>
         </div>

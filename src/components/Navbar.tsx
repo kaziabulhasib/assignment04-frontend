@@ -4,6 +4,8 @@ import { Link } from "react-router";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
+//   to do : make this more eye catching 
+
   return (
     <nav className='bg-[#2b343f] shadow px-4 py-3'>
       <div className='max-w-7xl mx-auto flex items-center justify-between'>
