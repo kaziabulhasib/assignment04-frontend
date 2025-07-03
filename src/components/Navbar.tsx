@@ -13,7 +13,7 @@ const Navbar = () => {
         <div className='md:hidden'>
           <button
             onClick={() => setOpen(!open)}
-            className='text-gray-700 focus:outline-none'
+            className='text-white focus:outline-none'
             aria-label='Toggle menu'>
             <svg
               className='w-6 h-6'
@@ -53,22 +53,22 @@ const Navbar = () => {
       </div>
       {/* Mobile menu */}
       {open && (
-        <div className='md:hidden mt-2 space-y-2'>
+        <div className='md:hidden mt-2 space-y-2 text-white'>
           <Link
             to='/books'
-            className='block px-2 py-1 hover:bg-blue-50 rounded'
+            className='block px-2 py-1 text-white hover:underline rounded'
             onClick={() => setOpen(false)}>
             All Books
           </Link>
           <Link
             to='/create-book'
-            className='block px-2 py-1 hover:bg-blue-50 rounded'
+            className='block px-2 py-1 text-white hover:underline rounded'
             onClick={() => setOpen(false)}>
             Add Book
           </Link>
           <Link
             to='/borrow-summary'
-            className='block px-2 py-1 hover:bg-blue-50 rounded'
+            className='block px-2 py-1 text-white hover:underline rounded'
             onClick={() => setOpen(false)}>
             Borrow Summary
           </Link>
