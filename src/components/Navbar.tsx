@@ -5,9 +5,9 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className='bg-white shadow px-4 py-3'>
+    <nav className='bg-[#2b343f] shadow px-4 py-3'>
       <div className='max-w-7xl mx-auto flex items-center justify-between'>
-        <Link to='/' className='font-bold text-xl text-blue-700'>
+        <Link to='/' className='font-bold text-xl text-white'>
           LibraTrack
         </Link>
         <div className='md:hidden'>
@@ -40,13 +40,13 @@ const Navbar = () => {
           </button>
         </div>
         <div className='hidden md:flex space-x-6'>
-          <Link to='/books' className='hover:text-blue-600'>
+          <Link to='/books' className='text-white'>
             All Books
           </Link>
-          <Link to='/add-book' className='hover:text-blue-600'>
+          <Link to='/add-book' className='text-white'>
             Add Book
           </Link>
-          <Link to='/borrow-summary' className='hover:text-blue-600'>
+          <Link to='/borrow-summary' className='text-white'>
             Borrow Summary
           </Link>
         </div>
