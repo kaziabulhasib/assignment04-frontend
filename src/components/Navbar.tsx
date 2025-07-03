@@ -8,7 +8,7 @@ const Navbar = () => {
     <nav className='bg-white shadow px-4 py-3'>
       <div className='max-w-7xl mx-auto flex items-center justify-between'>
         <Link to='/' className='font-bold text-xl text-blue-700'>
-          Library Manager
+          LibraTrack
         </Link>
         <div className='md:hidden'>
           <button
