@@ -1,15 +1,23 @@
 import React from "react";
 import { FaEdit } from "react-icons/fa";
-import { IoTrashBin, IoTrashBinOutline } from "react-icons/io5";
+import { IoTrashBin } from "react-icons/io5";
 
 const members = [
   {
     id: "1",
-    avatarUrl:
-      "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=880&q=80",
-    name: "Arthur Melo",
+
+    title: "Arthur Melo",
     username: "@arthurmelo",
-    status: "Active",
+    status: "available",
+    role: "Design Director",
+    email: "arthurmelo@example.com",
+    teams: ["Design", "Product", "Marketing"],
+  },
+  {
+    id: "2",
+    title: "Arthur Melo",
+    username: "@arthurmelo",
+    status: "not available",
     role: "Design Director",
     email: "arthurmelo@example.com",
     teams: ["Design", "Product", "Marketing"],
@@ -35,16 +43,12 @@ const BookTable: React.FC = () => {
                   <tr>
                     <th className='py-3.5 px-4 text-sm font-normal text-left text-gray-500'>
                       <div className='flex items-center gap-x-3'>
-                        <input
-                          type='checkbox'
-                          className='text-blue-500 border-gray-300 rounded'
-                        />
-                        <span>Name</span>
+                        <span>Title</span>
                       </div>
                     </th>
                     <th className='px-12 py-3.5 text-sm font-normal text-left text-gray-500'>
                       <button className='flex items-center gap-x-2'>
-                        <span>Status</span>
+                        <span>availability</span>
                         {/* SVG icon */}
                       </button>
                     </th>
@@ -70,24 +74,10 @@ const BookTable: React.FC = () => {
                     <tr key={m.id}>
                       <td className='px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap'>
                         <div className='inline-flex items-center gap-x-3'>
-                          <input
-                            type='checkbox'
-                            className='text-blue-500 border-gray-300 rounded'
-                          />
-                          <div className='flex items-center gap-x-2'>
-                            <img
-                              className='object-cover w-10 h-10 rounded-full'
-                              src={m.avatarUrl}
-                              alt={m.name}
-                            />
-                            <div>
-                              <h2 className='font-medium text-gray-800'>
-                                {m.name}
-                              </h2>
-                              <p className='text-sm text-gray-600'>
-                                {m.username}
-                              </p>
-                            </div>
+                          <div>
+                            <h2 className='font-medium text-gray-800'>
+                              {m.title}
+                            </h2>
                           </div>
                         </div>
                       </td>
