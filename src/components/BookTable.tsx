@@ -1,36 +1,37 @@
 import React from "react";
 import { FaEdit } from "react-icons/fa";
+import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 import { IoTrashBin } from "react-icons/io5";
 
-const members = [
+const books = [
   {
     id: "1",
-
-    title: "Arthur Melo",
-    username: "@arthurmelo",
+    title: "The Pragmatic Programmer",
+    author: "Andrew Hunt, David Thomas",
+    genre: "NON_FICTION",
+    isbn: "9780201616224",
+    description: "A classic book for software developers.",
+    copies: 5,
     status: "available",
-    role: "Design Director",
-    email: "arthurmelo@example.com",
-    teams: ["Design", "Product", "Marketing"],
   },
   {
     id: "2",
-    title: "Arthur Melo",
-    username: "@arthurmelo",
+    title: "Clean Code",
+    author: "Robert C. Martin",
+    genre: "NON_FICTION",
+    isbn: "9780132350884",
+    description: "A Handbook of Agile Software Craftsmanship.",
+    copies: 0,
     status: "not available",
-    role: "Design Director",
-    email: "arthurmelo@example.com",
-    teams: ["Design", "Product", "Marketing"],
   },
 ];
-
 const BookTable: React.FC = () => {
   return (
-    <section className='container px-4 mx-auto'>
+    <section className='container px-4 my-4 mx-auto'>
       <div className='flex items-center gap-x-3'>
-        <h2 className='text-lg font-medium text-gray-800'>Team members</h2>
+        <h2 className='text-lg font-medium text-gray-800'>Books</h2>
         <span className='px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full'>
-          {members.length} users
+          {books.length} books
         </span>
       </div>
 
@@ -48,29 +49,31 @@ const BookTable: React.FC = () => {
                     </th>
                     <th className='px-12 py-3.5 text-sm font-normal text-left text-gray-500'>
                       <button className='flex items-center gap-x-2'>
-                        <span>availability</span>
-                        {/* SVG icon */}
+                        <span>Status</span>
                       </button>
                     </th>
                     <th className='px-4 py-3.5 text-sm font-normal text-left text-gray-500'>
                       <button className='flex items-center gap-x-2'>
-                        <span>Role</span>
-                        {/* SVG icon */}
+                        <span>Genre</span>
                       </button>
                     </th>
                     <th className='px-4 py-3.5 text-sm font-normal text-left text-gray-500'>
-                      Email address
+                      Author
                     </th>
                     <th className='px-4 py-3.5 text-sm font-normal text-left text-gray-500'>
-                      Teams
+                      ISBN
                     </th>
+                    <th className='px-4 py-3.5 text-sm font-normal text-left text-gray-500'>
+                      Copies
+                    </th>
+
                     <th className='py-3.5 px-4'>
                       <span className='sr-only'>Edit</span>
                     </th>
                   </tr>
                 </thead>
                 <tbody className='bg-white divide-y divide-gray-200'>
-                  {members.map((m) => (
+                  {books.map((m) => (
                     <tr key={m.id}>
                       <td className='px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap'>
                         <div className='inline-flex items-center gap-x-3'>
@@ -90,20 +93,19 @@ const BookTable: React.FC = () => {
                         </div>
                       </td>
                       <td className='px-4 py-4 text-sm text-gray-500 whitespace-nowrap'>
-                        {m.role}
+                        {m.genre}
                       </td>
                       <td className='px-4 py-4 text-sm text-gray-500 whitespace-nowrap'>
-                        {m.email}
+                        {m.author}
                       </td>
                       <td className='px-4 py-4 text-sm whitespace-nowrap'>
                         <div className='flex items-center gap-x-2'>
-                          {m.teams.map((team, i) => (
-                            <p
-                              key={i}
-                              className='px-3 py-1 text-xs text-indigo-500 rounded-full bg-indigo-100/60'>
-                              {team}
-                            </p>
-                          ))}
+                          {m.isbn}
+                        </div>
+                      </td>
+                      <td className='px-4 py-4 text-sm whitespace-nowrap'>
+                        <div className='flex items-center gap-x-2'>
+                          {m.copies}
                         </div>
                       </td>
                       <td className='px-4 py-4 text-sm whitespace-nowrap'>
@@ -128,7 +130,7 @@ const BookTable: React.FC = () => {
       {/* Pagination controls (stub) */}
       <div className='flex items-center justify-between mt-6'>
         <button className='flex items-center px-5 py-2 text-sm text-gray-700 bg-white border rounded-md gap-x-2 hover:bg-gray-100'>
-          {/* Prev SVG */}
+          <GrFormPreviousLink className='text-2xl' />
           <span>Previous</span>
         </button>
         <div className='hidden lg:flex items-center gap-x-3'>
@@ -146,7 +148,7 @@ const BookTable: React.FC = () => {
         </div>
         <button className='flex items-center px-5 py-2 text-sm text-gray-700 bg-white border rounded-md gap-x-2 hover:bg-gray-100'>
           <span>Next</span>
-          {/* Next SVG */}
+          <GrFormNextLink className='text-2xl' />
         </button>
       </div>
     </section>
