@@ -1,5 +1,5 @@
 import React from "react";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaHandHolding } from "react-icons/fa";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 import { IoTrashBin } from "react-icons/io5";
 
@@ -134,6 +134,9 @@ const BookTable: React.FC = () => {
                           </button>
                           <button className='text-gray-500 hover:text-indigo-500 focus:outline-none text-xl'>
                             <FaEdit />
+                          </button>
+                          <button className='text-gray-500 hover:text-green-500 focus:outline-none text-2xl'>
+                            <FaHandHolding />
                           </button>
                         </div>
                       </td>
