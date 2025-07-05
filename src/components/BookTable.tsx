@@ -7,6 +7,7 @@ import {
   useDeleteBookMutation,
   useGetBooksQuery,
 } from "../redux/features/book/bookApi";
+import Swal from "sweetalert2";
 
 const BookTable: React.FC = () => {
   const { data, isLoading, error, refetch } = useGetBooksQuery({
@@ -20,10 +21,26 @@ const BookTable: React.FC = () => {
   if (error) return <div>Error loading books.</div>;
 
   const handleDeleteBook = async (id: string) => {
-    if (window.confirm("Are you sure you want to delete this book?")) {
-      await deleteBook(id);
-      refetch();
-    }
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteBook(id);
+        refetch();
+
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      }
+    });
   };
 
   return (
