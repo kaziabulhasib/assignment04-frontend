@@ -8,8 +8,13 @@ export const bookApi = createApi({
       query: ({ page = 1, limit = 10 } = {}) =>
         `books?page=${page}&limit=${limit}`,
     }),
-    // You can add more endpoints (addBook, editBook, deleteBook) here later
+    deleteBook: builder.mutation({
+      query: (id) => ({
+        url: `books/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
-export const { useGetBooksQuery } = bookApi;
+export const { useGetBooksQuery, useDeleteBookMutation } = bookApi;

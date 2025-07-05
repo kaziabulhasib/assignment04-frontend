@@ -3,14 +3,28 @@ import { FaEdit } from "react-icons/fa";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 import { IoTrashBin } from "react-icons/io5";
 
-import { useGetBooksQuery } from "../redux/features/book/bookApi";
+import {
+  useDeleteBookMutation,
+  useGetBooksQuery,
+} from "../redux/features/book/bookApi";
 
 const BookTable: React.FC = () => {
-  const { data, isLoading, error } = useGetBooksQuery({ page: 1, limit: 10 });
+  const { data, isLoading, error, refetch } = useGetBooksQuery({
+    page: 1,
+    limit: 10,
+  });
+  const [deleteBook] = useDeleteBookMutation();
   const books = data?.data || [];
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading books.</div>;
+
+  const handleDeleteBook = async (id: string) => {
+    if (window.confirm("Are you sure you want to delete this book?")) {
+      await deleteBook(id);
+      refetch();
+    }
+  };
 
   return (
     <section className='container px-4 my-4 mx-auto'>
@@ -96,7 +110,9 @@ const BookTable: React.FC = () => {
                       </td>
                       <td className='px-4 py-4 text-sm whitespace-nowrap'>
                         <div className='flex items-center gap-x-6'>
-                          <button className='text-gray-500 hover:text-red-500 focus:outline-none text-xl'>
+                          <button
+                            onClick={() => handleDeleteBook(m._id)}
+                            className='text-gray-500 hover:text-red-500 focus:outline-none text-xl'>
                             <IoTrashBin />
                           </button>
                           <button className='text-gray-500 hover:text-indigo-500 focus:outline-none text-xl'>
