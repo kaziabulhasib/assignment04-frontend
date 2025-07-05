@@ -5,7 +5,6 @@ import { IoTrashBin } from "react-icons/io5";
 
 import { useGetBooksQuery } from "../redux/features/book/bookApi";
 
-
 const BookTable: React.FC = () => {
   const { data, isLoading, error } = useGetBooksQuery({ page: 1, limit: 10 });
   const books = data?.data || [];
@@ -75,7 +74,7 @@ const BookTable: React.FC = () => {
                         <div className='inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-emerald-100/60'>
                           <span className='h-1.5 w-1.5 rounded-full bg-emerald-500'></span>
                           <h2 className='text-sm font-normal text-emerald-500'>
-                            {m.status}
+                            {m.available ? "available" : "not available"}
                           </h2>
                         </div>
                       </td>
