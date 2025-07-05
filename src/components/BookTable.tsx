@@ -1,5 +1,5 @@
 import React from "react";
-import { FaEdit, FaHandHolding } from "react-icons/fa";
+import { FaEdit, FaHandHolding, FaHandHoldingHeart } from "react-icons/fa";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 import { IoTrashBin } from "react-icons/io5";
 
@@ -129,14 +129,14 @@ const BookTable: React.FC = () => {
                         <div className='flex items-center gap-x-6'>
                           <button
                             onClick={() => handleDeleteBook(m._id)}
-                            className='text-gray-500 hover:text-red-500 focus:outline-none text-xl'>
+                            className='cursor-pointer text-gray-500 hover:text-red-500 focus:outline-none text-xl'>
                             <IoTrashBin />
                           </button>
-                          <button className='text-gray-500 hover:text-indigo-500 focus:outline-none text-xl'>
+                          <button className='cursor-pointer text-gray-500 hover:text-indigo-500 focus:outline-none text-xl'>
                             <FaEdit />
                           </button>
-                          <button className='text-gray-500 hover:text-green-500 focus:outline-none text-2xl'>
-                            <FaHandHolding />
+                          <button className='cursor-pointer text-center text-gray-500 hover:text-green-500 focus:outline-none text-2xl'>
+                            <FaHandHoldingHeart />
                           </button>
                         </div>
                       </td>
