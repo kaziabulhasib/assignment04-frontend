@@ -3,29 +3,16 @@ import { FaEdit } from "react-icons/fa";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 import { IoTrashBin } from "react-icons/io5";
 
-const books = [
-  {
-    id: "1",
-    title: "The Pragmatic Programmer",
-    author: "Andrew Hunt, David Thomas",
-    genre: "NON_FICTION",
-    isbn: "9780201616224",
-    description: "A classic book for software developers.",
-    copies: 5,
-    status: "available",
-  },
-  {
-    id: "2",
-    title: "Clean Code",
-    author: "Robert C. Martin",
-    genre: "NON_FICTION",
-    isbn: "9780132350884",
-    description: "A Handbook of Agile Software Craftsmanship.",
-    copies: 0,
-    status: "not available",
-  },
-];
+import { useGetBooksQuery } from "../redux/features/book/bookApi";
+
+
 const BookTable: React.FC = () => {
+  const { data, isLoading, error } = useGetBooksQuery({ page: 1, limit: 10 });
+  const books = data?.data || [];
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading books.</div>;
+
   return (
     <section className='container px-4 my-4 mx-auto'>
       <div className='flex items-center gap-x-3'>
