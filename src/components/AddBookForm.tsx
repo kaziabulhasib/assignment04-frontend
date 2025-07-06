@@ -4,6 +4,7 @@ import {
   useGetBooksQuery,
   useAddBookMutation,
 } from "../redux/features/book/bookApi";
+import Swal from "sweetalert2";
 
 const genres = [
   "FICTION",
@@ -39,7 +40,7 @@ const AddBookForm: React.FC = () => {
     setErrorMsg(null);
     try {
       await addBook(data).unwrap();
-      setSuccess("Book added successfully!");
+      Swal.fire("book added successfully")
       reset();
     } catch (err: any) {
       setErrorMsg(err?.data?.message || "Failed to add book.");
