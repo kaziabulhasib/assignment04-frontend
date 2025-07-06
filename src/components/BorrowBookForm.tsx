@@ -37,7 +37,7 @@ export default function BorrowBookForm({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className='p-4 bg-white rounded shadow'>
+      className='w-full max-w-md md:max-w-lg  mx-auto p-6 bg-white rounded shadow'>
       <h2 className='font-bold mb-2'>Borrow Book</h2>
       {success && <div className='mb-2 text-green-600'>{success}</div>}
       {errorMsg && <div className='mb-2 text-red-600'>{errorMsg}</div>}
@@ -74,13 +74,13 @@ export default function BorrowBookForm({
       </div>
       <button
         type='submit'
-        className='bg-green-600 text-white px-4 py-2 rounded'
+        className='bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded cursor-pointer'
         disabled={isLoading}>
         {isLoading ? "Borrowing..." : "Borrow"}
       </button>
       <button
         type='button'
-        className='ml-2 px-4 py-2 rounded'
+        className='ml-2 px-4 py-2 rounded bg-slate-500 hover:bg-slate-600 text-slate-100 cursor-pointer'
         onClick={onClose}>
         Cancel
       </button>

@@ -144,7 +144,7 @@ const AddBookForm: React.FC = () => {
 
       <button
         type='submit'
-        className='bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700'
+        className='bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded cursor-pointer'
         disabled={isLoading}>
         {isLoading ? "Adding..." : "Add Book"}
       </button>
