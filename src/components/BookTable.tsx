@@ -1,5 +1,5 @@
-import React from "react";
-import { FaEdit, FaHandHolding, FaHandHoldingHeart } from "react-icons/fa";
+import React, { useState } from "react";
+import { FaEdit, FaHandHoldingHeart } from "react-icons/fa";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 import { IoTrashBin } from "react-icons/io5";
 
@@ -8,6 +8,7 @@ import {
   useGetBooksQuery,
 } from "../redux/features/book/bookApi";
 import Swal from "sweetalert2";
+import EditBookForm from "./EditBookForm";
 
 const BookTable: React.FC = () => {
   const { data, isLoading, error, refetch } = useGetBooksQuery({
@@ -16,9 +17,6 @@ const BookTable: React.FC = () => {
   });
   const [deleteBook] = useDeleteBookMutation();
   const books = data?.data || [];
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading books.</div>;
 
   const handleDeleteBook = async (id: string) => {
     Swal.fire({
@@ -45,9 +43,14 @@ const BookTable: React.FC = () => {
 
   // edit book
 
-  const handleEditBook = async (id: string) => {
-    // console.log("id of the book is ",id);
+  const [editingBook, setEditingBook] = useState<any | null>(null);
+
+  const handleEditBook = (book: any) => {
+    setEditingBook(book);
   };
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading books.</div>;
   return (
     <section className='container px-4 my-4 mx-auto'>
       <div className='flex items-center gap-x-3'>
@@ -56,7 +59,6 @@ const BookTable: React.FC = () => {
           {books.length} books
         </span>
       </div>
-
       <div className='flex flex-col mt-6 min-h-[calc(100vh-200px)]'>
         <div className='overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8 -my-2'>
           <div className='inline-block min-w-full py-2 align-middle md:px-6 lg:px-8'>
@@ -138,7 +140,7 @@ const BookTable: React.FC = () => {
                             <IoTrashBin />
                           </button>
                           <button
-                            onClick={() => handleEditBook(m._id)}
+                            onClick={() => handleEditBook(m)}
                             className='cursor-pointer text-gray-500 hover:text-indigo-500 focus:outline-none text-xl'>
                             <FaEdit />
                           </button>
@@ -155,7 +157,17 @@ const BookTable: React.FC = () => {
           </div>
         </div>
       </div>
-
+      {editingBook && (
+        <div className='fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50'>
+          <EditBookForm
+            book={editingBook}
+            onClose={() => {
+              setEditingBook(null);
+              refetch();
+            }}
+          />
+        </div>
+      )}
       {/* Pagination controls (stub) */}
       <div className='flex items-center justify-between mt-6'>
         <button className='flex items-center px-5 py-2 text-sm text-gray-700 bg-white border rounded-md gap-x-2 hover:bg-gray-100'>
