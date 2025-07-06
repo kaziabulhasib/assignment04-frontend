@@ -43,6 +43,11 @@ const BookTable: React.FC = () => {
     });
   };
 
+  // edit book
+
+  const handleEditBook = async (id: string) => {
+    // console.log("id of the book is ",id);
+  };
   return (
     <section className='container px-4 my-4 mx-auto'>
       <div className='flex items-center gap-x-3'>
@@ -132,7 +137,9 @@ const BookTable: React.FC = () => {
                             className='cursor-pointer text-gray-500 hover:text-red-500 focus:outline-none text-xl'>
                             <IoTrashBin />
                           </button>
-                          <button className='cursor-pointer text-gray-500 hover:text-indigo-500 focus:outline-none text-xl'>
+                          <button
+                            onClick={() => handleEditBook(m._id)}
+                            className='cursor-pointer text-gray-500 hover:text-indigo-500 focus:outline-none text-xl'>
                             <FaEdit />
                           </button>
                           <button className='cursor-pointer text-center text-gray-500 hover:text-green-500 focus:outline-none text-2xl'>
