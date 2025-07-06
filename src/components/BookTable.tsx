@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FaEdit, FaHandHoldingHeart } from "react-icons/fa";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 import { IoTrashBin } from "react-icons/io5";
+import BorrowBookForm from "./BorrowBookForm";
 
 import {
   useDeleteBookMutation,
@@ -17,6 +18,7 @@ const BookTable: React.FC = () => {
   });
   const [deleteBook] = useDeleteBookMutation();
   const books = data?.data || [];
+  const [borrowingBook, setBorrowingBook] = useState<any | null>(null);
 
   const handleDeleteBook = async (id: string) => {
     Swal.fire({
@@ -47,6 +49,12 @@ const BookTable: React.FC = () => {
 
   const handleEditBook = (book: any) => {
     setEditingBook(book);
+  };
+
+  // borrow book
+
+  const handleBorrowBook = (book: any) => {
+    setBorrowingBook(book);
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -144,7 +152,9 @@ const BookTable: React.FC = () => {
                             className='cursor-pointer text-gray-500 hover:text-indigo-500 focus:outline-none text-xl'>
                             <FaEdit />
                           </button>
-                          <button className='cursor-pointer text-center text-gray-500 hover:text-green-500 focus:outline-none text-2xl'>
+                          <button
+                            onClick={() => handleBorrowBook(m)}
+                            className='cursor-pointer text-center text-gray-500 hover:text-green-500 focus:outline-none text-2xl'>
                             <FaHandHoldingHeart />
                           </button>
                         </div>
@@ -163,6 +173,19 @@ const BookTable: React.FC = () => {
             book={editingBook}
             onClose={() => {
               setEditingBook(null);
+              refetch();
+            }}
+          />
+        </div>
+      )}
+
+      {/* borrow book modal  */}
+      {borrowingBook && (
+        <div className='fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50'>
+          <BorrowBookForm
+            book={borrowingBook}
+            onClose={() => {
+              setBorrowingBook(null);
               refetch();
             }}
           />

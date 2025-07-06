@@ -15,16 +15,14 @@ export const bookApi = createApi({
         body: newBook,
       }),
     }),
-  
-editBook: builder.mutation({
-  query: ({ id, ...updatedBook }) => ({
-    url: `books/${id}`,
-    method: "PUT",
-    body: updatedBook,
-  }),
-}),
 
-
+    editBook: builder.mutation({
+      query: ({ id, ...updatedBook }) => ({
+        url: `books/${id}`,
+        method: "PUT",
+        body: updatedBook,
+      }),
+    }),
 
     deleteBook: builder.mutation({
       query: (id) => ({
@@ -32,8 +30,21 @@ editBook: builder.mutation({
         method: "DELETE",
       }),
     }),
+
+    borrowBook: builder.mutation({
+      query: (borrowData) => ({
+        url: "borrow",
+        method: "POST",
+        body: borrowData,
+      }),
+    }),
   }),
 });
 
-export const { useGetBooksQuery, useAddBookMutation, useDeleteBookMutation , useEditBookMutation} =
-  bookApi;
+export const {
+  useGetBooksQuery,
+  useAddBookMutation,
+  useDeleteBookMutation,
+  useEditBookMutation,
+  useBorrowBookMutation
+} = bookApi;
