@@ -2,7 +2,7 @@ import React from "react";
 import { useGetBorrowSummaryQuery } from "../redux/features/borrow/borrowApi";
 
 const BorrowSummary: React.FC = () => {
-  const { data, isLoading, error } = useGetBorrowSummaryQuery();
+  const { data, isLoading, error } = useGetBorrowSummaryQuery(undefined);
 
   if (isLoading) return <div>Loading summary...</div>;
   if (error) return <div>Error loading summary.</div>;

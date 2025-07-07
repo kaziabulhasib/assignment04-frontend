@@ -6,7 +6,7 @@ export const bookApi = createApi({
     baseUrl: "https://assignment04-backend-sandy.vercel.app/api/",
   }),
   endpoints: (builder) => ({
-    getBooks: builder.query({
+    getBooks: builder.query<any, { page?: number; limit?: number }>({
       query: ({ page = 1, limit = 10 } = {}) =>
         `books?page=${page}&limit=${limit}`,
     }),

@@ -113,7 +113,7 @@ const BookTable: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody className='bg-white divide-y divide-gray-200'>
-                  {books.map((m) => (
+                  {books.map((m: any) => (
                     <tr key={m._id || m.id}>
                       <td className='px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap'>
                         <div className='inline-flex items-center gap-x-3'>

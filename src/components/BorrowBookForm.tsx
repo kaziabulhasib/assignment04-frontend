@@ -59,7 +59,7 @@ export default function BorrowBookForm({
         />
         {errors.quantity && (
           <span className='text-red-500 text-sm'>
-            {errors.quantity.message}
+            {String(errors.quantity.message)}
           </span>
         )}
       </div>
@@ -71,7 +71,9 @@ export default function BorrowBookForm({
           {...register("dueDate", { required: "Due date is required" })}
         />
         {errors.dueDate && (
-          <span className='text-red-500 text-sm'>{errors.dueDate.message}</span>
+          <span className='text-red-500 text-sm'>
+            {String(errors.dueDate.message)}
+          </span>
         )}
       </div>
       <button

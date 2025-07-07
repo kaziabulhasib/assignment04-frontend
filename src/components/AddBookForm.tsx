@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import {
-  useGetBooksQuery,
-  useAddBookMutation,
-} from "../redux/features/book/bookApi";
+import { useAddBookMutation } from "../redux/features/book/bookApi";
 import Swal from "sweetalert2";
 
 const genres = [
@@ -24,7 +21,11 @@ type BookFormInputs = {
   copies: number;
 };
 
-const AddBookForm: React.FC<Props> = ({ refetchBooks }) => {
+type AddBookFormProps = {
+  refetchBooks: () => void;
+};
+
+const AddBookForm: React.FC<AddBookFormProps> = ({ refetchBooks }) => {
   const {
     register,
     handleSubmit,
@@ -83,18 +84,6 @@ const AddBookForm: React.FC<Props> = ({ refetchBooks }) => {
         {errors.author && (
           <span className='text-red-500 text-sm'>{errors.author.message}</span>
         )}
-      </div>
-      {/* status  */}
-
-      <div className='mb-4'>
-        <label className='block mb-1 font-medium'>Available</label>
-        <select
-          className='w-full border px-3 py-2 rounded'
-          {...register("available", { required: true })}
-          defaultValue='true'>
-          <option value='true'>Available</option>
-          <option value='false'>Not Available</option>
-        </select>
       </div>
 
       <div className='mb-4'>
