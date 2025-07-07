@@ -3,12 +3,17 @@ import App from "../App";
 import Books from "../components/Books";
 import AddBooks from "../components/AddBooks";
 import BorrowSummary from "../components/BorrowSummary";
+import HeroSection from "../components/HeroSection";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: App,
     children: [
+      {
+        path: "/",
+        Component: HeroSection,
+      },
       {
         path: "books",
         Component: Books,
