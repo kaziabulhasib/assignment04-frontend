@@ -1,11 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { bookApi } from "./features/book/bookApi";
+import { borrowApi } from "./features/borrow/borrowApi"; 
 
 export const store = configureStore({
   reducer: {
     [bookApi.reducerPath]: bookApi.reducer,
-    // ...other reducers
+    [borrowApi.reducerPath]: borrowApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(bookApi.middleware),
+    getDefaultMiddleware()
+      .concat(bookApi.middleware)
+      .concat(borrowApi.middleware), 
 });
