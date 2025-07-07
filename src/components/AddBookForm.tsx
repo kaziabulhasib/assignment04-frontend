@@ -24,7 +24,7 @@ type BookFormInputs = {
   copies: number;
 };
 
-const AddBookForm: React.FC = () => {
+const AddBookForm: React.FC<Props> = ({ refetchBooks }) => {
   const {
     register,
     handleSubmit,
@@ -40,13 +40,20 @@ const AddBookForm: React.FC = () => {
     setErrorMsg(null);
     try {
       await addBook(data).unwrap();
-      Swal.fire("book added successfully")
       reset();
+      refetchBooks();
+      // setSuccess("Book added successfully!");
+      Swal.fire("Book added successfully");
     } catch (err: any) {
-      setErrorMsg(err?.data?.message || "Failed to add book.");
+      // setErrorMsg(err?.data?.message || "Failed to add book.");
+      Swal.fire({
+        title: "Failed",
+        icon: "error",
+        text: "Failed to add book.",
+        // draggable: true,
+      });
     }
   };
-
   return (
     <form
       className='max-w-lg mx-auto bg-white p-6 rounded shadow mt-8'
