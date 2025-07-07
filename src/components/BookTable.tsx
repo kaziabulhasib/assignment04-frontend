@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaEdit, FaHandHoldingHeart } from "react-icons/fa";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 import { IoTrashBin } from "react-icons/io5";
 import BorrowBookForm from "./BorrowBookForm";
-
 import {
   useDeleteBookMutation,
   useGetBooksQuery,
@@ -12,13 +11,27 @@ import Swal from "sweetalert2";
 import EditBookForm from "./EditBookForm";
 
 const BookTable: React.FC = () => {
+  const [page, setPage] = useState(1);
+  const limit = 10;
+
   const { data, isLoading, error, refetch } = useGetBooksQuery({
-    page: 1,
-    limit: 10,
+    page,
+    limit,
   });
   const [deleteBook] = useDeleteBookMutation();
   const books = data?.data || [];
+  const total = data?.pagination?.total || 0; // <-- FIXED: use pagination
+  const totalPages = Math.ceil(total / limit);
+
+  // Ensure page is always valid when totalPages changes (e.g. after add/delete)
+  useEffect(() => {
+    if (page > totalPages && totalPages > 0) {
+      setPage(totalPages);
+    }
+  }, [totalPages, page]);
+
   const [borrowingBook, setBorrowingBook] = useState<any | null>(null);
+  const [editingBook, setEditingBook] = useState<any | null>(null);
 
   const handleDeleteBook = async (id: string) => {
     Swal.fire({
@@ -43,28 +56,28 @@ const BookTable: React.FC = () => {
     });
   };
 
-  // edit book
-
-  const [editingBook, setEditingBook] = useState<any | null>(null);
-
   const handleEditBook = (book: any) => {
     setEditingBook(book);
   };
-
-  // borrow book
 
   const handleBorrowBook = (book: any) => {
     setBorrowingBook(book);
   };
 
+  // Optional: Scroll to top on page change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [page]);
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading books.</div>;
+
   return (
     <section className='container px-4 my-4 mx-auto'>
       <div className='flex items-center gap-x-3'>
         <h2 className='text-lg font-medium text-gray-800'>Books</h2>
         <span className='px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full'>
-          {books.length} books
+          {total} books {/* <-- FIXED: use total, not books.length */}
         </span>
       </div>
       <div className='flex flex-col mt-6 min-h-[calc(100vh-200px)]'>
@@ -80,14 +93,10 @@ const BookTable: React.FC = () => {
                       </div>
                     </th>
                     <th className='px-12 py-3.5 text-sm font-normal text-left text-gray-500'>
-                      <button className='flex items-center gap-x-2'>
-                        <span>Status</span>
-                      </button>
+                      <span>Status</span>
                     </th>
                     <th className='px-4 py-3.5 text-sm font-normal text-left text-gray-500'>
-                      <button className='flex items-center gap-x-2'>
-                        <span>Genre</span>
-                      </button>
+                      <span>Genre</span>
                     </th>
                     <th className='px-4 py-3.5 text-sm font-normal text-left text-gray-500'>
                       Author
@@ -98,7 +107,6 @@ const BookTable: React.FC = () => {
                     <th className='px-4 py-3.5 text-sm font-normal text-left text-gray-500'>
                       Copies
                     </th>
-
                     <th className='py-3.5 px-4'>
                       <span className='sr-only'>Edit</span>
                     </th>
@@ -106,7 +114,7 @@ const BookTable: React.FC = () => {
                 </thead>
                 <tbody className='bg-white divide-y divide-gray-200'>
                   {books.map((m) => (
-                    <tr key={m.id}>
+                    <tr key={m._id || m.id}>
                       <td className='px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap'>
                         <div className='inline-flex items-center gap-x-3'>
                           <div>
@@ -191,31 +199,41 @@ const BookTable: React.FC = () => {
           />
         </div>
       )}
-      {/* Pagination controls (stub) */}
-      <div className='flex items-center justify-between mt-6'>
-        <button className='flex items-center px-5 py-2 text-sm text-gray-700 bg-white border rounded-md gap-x-2 hover:bg-gray-100'>
-          <GrFormPreviousLink className='text-2xl' />
-          <span>Previous</span>
-        </button>
-        <div className='hidden lg:flex items-center gap-x-3'>
-          {[1, 2, 3, 4, 5].map((n) => (
-            <button
-              key={n}
-              className={`px-2 py-1 text-sm ${
-                n === 1
-                  ? "text-blue-500 bg-blue-100/60"
-                  : "text-gray-500 hover:bg-gray-100"
-              } rounded-md`}>
-              {n}
-            </button>
-          ))}
+      {/* Pagination controls */}
+      {totalPages > 1 && (
+        <div className='flex items-center justify-between mt-6'>
+          <button
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={page === 1}
+            className='flex items-center px-5 py-2 text-sm text-gray-700 bg-white border rounded-md gap-x-2 hover:bg-gray-100 disabled:opacity-50'>
+            <GrFormPreviousLink className='text-2xl' />
+            <span>Previous</span>
+          </button>
+          <div className='flex items-center gap-x-2'>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
+              <button
+                key={n}
+                onClick={() => setPage(n)}
+                className={`px-3 py-1 text-sm rounded-md ${
+                  n === page
+                    ? "text-blue-500 bg-blue-100/60"
+                    : "text-gray-500 hover:bg-gray-100"
+                }`}>
+                {n}
+              </button>
+            ))}
+          </div>
+          <button
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            disabled={page === totalPages || totalPages === 0}
+            className='flex items-center px-5 py-2 text-sm text-gray-700 bg-white border rounded-md gap-x-2 hover:bg-gray-100 disabled:opacity-50'>
+            <span>Next</span>
+            <GrFormNextLink className='text-2xl' />
+          </button>
         </div>
-        <button className='flex items-center px-5 py-2 text-sm text-gray-700 bg-white border rounded-md gap-x-2 hover:bg-gray-100'>
-          <span>Next</span>
-          <GrFormNextLink className='text-2xl' />
-        </button>
-      </div>
+      )}
     </section>
   );
 };
+
 export default BookTable;
