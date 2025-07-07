@@ -1,6 +1,6 @@
 import BookTable from "./BookTable";
 import { useGetBorrowSummaryQuery } from "../redux/features/borrow/borrowApi";
-import BorrowSummary from "./BorrowSummary";
+// import BorrowSummary from "./BorrowSummary";
 
 function Books() {
   // Get refetch for borrow summary
@@ -8,7 +8,7 @@ function Books() {
   return (
     <div>
       <BookTable onBorrowed={refetch} />
-      <BorrowSummary />
+      {/* <BorrowSummary /> */}
     </div>
   );
 }
