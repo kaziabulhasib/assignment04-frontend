@@ -2,7 +2,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const bookApi = createApi({
   reducerPath: "bookApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api/" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://assignment04-backend-sandy.vercel.app/api/",
+  }),
   endpoints: (builder) => ({
     getBooks: builder.query({
       query: ({ page = 1, limit = 10 } = {}) =>
@@ -46,5 +48,5 @@ export const {
   useAddBookMutation,
   useDeleteBookMutation,
   useEditBookMutation,
-  useBorrowBookMutation
+  useBorrowBookMutation,
 } = bookApi;
