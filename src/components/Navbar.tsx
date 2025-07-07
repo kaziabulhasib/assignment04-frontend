@@ -4,7 +4,7 @@ import { Link } from "react-router";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
-//   to do : make this more eye catching 
+  //   to do : make this more eye catching
 
   return (
     <nav className='bg-[#2b343f] shadow px-4 py-3'>
@@ -63,7 +63,7 @@ const Navbar = () => {
             All Books
           </Link>
           <Link
-            to='/create-book'
+            to='/add-book'
             className='block px-2 py-1 text-white hover:underline rounded'
             onClick={() => setOpen(false)}>
             Add Book
