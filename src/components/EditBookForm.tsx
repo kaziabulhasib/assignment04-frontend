@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useEditBookMutation } from "../redux/features/book/bookApi";
+import Swal from "sweetalert2";
 
 const genres = [
   "FICTION",
@@ -34,6 +35,7 @@ export default function EditBookForm({
     if (Number(data.copies) === 0) data.available = false;
     else data.available = true;
     await editBook({ id: book._id, ...data });
+    Swal.fire("book edited successfully!");
     onClose();
   };
 
