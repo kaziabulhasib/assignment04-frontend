@@ -205,9 +205,9 @@ const BookTable: React.FC = () => {
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page === 1}
-            className='flex items-center px-5 py-2 text-sm text-gray-700 bg-white border rounded-md gap-x-2 hover:bg-gray-100 disabled:opacity-50'>
+            className='flex items-center px-1 md:px-3 py-0.5 md:py-2 text-sm text-gray-700 bg-white border rounded-md gap-x-2 hover:bg-gray-100 disabled:opacity-50'>
             <GrFormPreviousLink className='text-2xl' />
-            <span>Previous</span>
+            <span>Prev</span>
           </button>
           <div className='flex items-center gap-x-2'>
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
@@ -226,7 +226,7 @@ const BookTable: React.FC = () => {
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page === totalPages || totalPages === 0}
-            className='flex items-center px-5 py-2 text-sm text-gray-700 bg-white border rounded-md gap-x-2 hover:bg-gray-100 disabled:opacity-50'>
+            className='flex items-center px-1 md:px-3 py-0.5 md:py-2 text-sm text-gray-700 bg-white border rounded-md gap-x-2 hover:bg-gray-100 disabled:opacity-50'>
             <span>Next</span>
             <GrFormNextLink className='text-2xl' />
           </button>
