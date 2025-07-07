@@ -3,13 +3,17 @@ import { useForm } from "react-hook-form";
 import { useBorrowBookMutation } from "../redux/features/book/bookApi";
 import Swal from "sweetalert2";
 
+interface BorrowBookFormProps {
+  book: any;
+  onClose: () => void;
+  onBorrowed?: () => void;
+}
+
 export default function BorrowBookForm({
   book,
   onClose,
-}: {
-  book: any;
-  onClose: () => void;
-}) {
+  onBorrowed,
+}: BorrowBookFormProps) {
   const {
     register,
     handleSubmit,
@@ -30,6 +34,7 @@ export default function BorrowBookForm({
       }).unwrap();
       setSuccess("Book borrowed successfully!");
       Swal.fire("Book borrowed successfully!");
+      if (onBorrowed) onBorrowed();
       onClose();
     } catch (err: any) {
       setErrorMsg(err?.data?.message || "Failed to borrow book.");

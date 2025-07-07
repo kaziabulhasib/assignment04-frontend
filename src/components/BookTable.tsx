@@ -10,7 +10,11 @@ import {
 import Swal from "sweetalert2";
 import EditBookForm from "./EditBookForm";
 
-const BookTable: React.FC = () => {
+interface BookTableProps {
+  onBorrowed?: () => void;
+}
+
+const BookTable: React.FC<BookTableProps> = ({ onBorrowed }) => {
   const [page, setPage] = useState(1);
   const limit = 10;
 
@@ -42,11 +46,10 @@ const BookTable: React.FC = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        deleteBook(id);
+        await deleteBook(id);
         refetch();
-
         Swal.fire({
           title: "Deleted!",
           text: "Your file has been deleted.",
@@ -195,6 +198,9 @@ const BookTable: React.FC = () => {
             onClose={() => {
               setBorrowingBook(null);
               refetch();
+            }}
+            onBorrowed={() => {
+              if (onBorrowed) onBorrowed();
             }}
           />
         </div>
